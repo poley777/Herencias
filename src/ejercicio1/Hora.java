@@ -1,10 +1,13 @@
-package ejercicios;
+package ejercicio1;
 
 public class Hora {
 	private int hora;
 	private int minuto;
 	
 	public Hora(int hora, int minuto) {
+		if (hora < 0 || hora > 23 || minuto < 0 || minuto > 23) {
+			throw new IllegalArgumentException ("Horas o minutos inválidos");
+		}
 		this.hora = hora;
 		this.minuto = minuto;
 	}
@@ -13,16 +16,13 @@ public class Hora {
 	 * Método que incrementa un minuto
 	 */
 	void inc() {
-		if (minuto == 59) {
+		minuto++;
+		if (minuto == 60) {
 			minuto = 0;
-			if (hora == 23) {
+			hora++;
+			if (hora == 24) {
 				hora = 0;
-			} else {
-				hora++;
 			}
-			
-		} else {
-			minuto++;
 		}
 	}
 	
@@ -32,12 +32,14 @@ public class Hora {
 	 * @return true/false si lo consigue modificar o no
 	 */
 	boolean setMinutos(int valor) {
+		boolean minutosValidos = false;
 		this.minuto = valor;
 		if (minuto != valor) {
-			return false;
+			minutosValidos = false;
 		} else {
-			return true;
+			minutosValidos = true;
 		}
+		return minutosValidos;
 	}
 	
 	/**
@@ -46,12 +48,14 @@ public class Hora {
 	 * @return true/false si lo consigue modificar o no
 	 */
 	boolean setHoras(int valor) {
+		boolean horasValidas = false;
 		this.hora = valor;
 		if (hora < 0 || hora > 23) {
-			return false;
+			horasValidas = false;
 		} else {
-			return true;
+			horasValidas = true;
 		}
+		return horasValidas;
 	}
 
 	@Override
